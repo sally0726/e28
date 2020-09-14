@@ -19,15 +19,28 @@ function init() {
 }
 
 function guess() {
+    if (num_guesses <= 0) {
+        return;
+    }
+
     history.style.display = 'block';
 
     let ans = document.querySelector('input[name="guess"]').value;
-    // console.log(ans);
+    var flag = true;
     for (var i = 0; i < historyGuess.length; i++) {
         if (ans == historyGuess[i]) {
             msgDisp.innerHTML = "Come on, try another one!";
-            return;
+            flag = false;
+            break;
         }
+    }
+    if (flag) {
+        num_guesses--;
+        guessLeftDisp.innerHTML = num_guesses;
+    }
+
+    if (num_guesses <= 0) {
+        msgDisp.innerHTML = 'Game over! You can restart though.';
     }
 
     if (ans > target) {
@@ -37,8 +50,6 @@ function guess() {
     } else {
         msgDisp.innerHTML = 'Spot on! Good job!';
     }
-    num_guesses--;
-    guessLeftDisp.innerHTML = num_guesses;
     
     historyGuess.push(ans);
     historyList.innerHTML = historyGuess.join();
