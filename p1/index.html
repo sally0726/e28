@@ -1,21 +1,54 @@
 <head>
     <title>Hi-Low Game</title>
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js' defer></script>
     <script src="main.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Hi-Low Game</h1>
-    <div>
-        <div>Guesses left: <span id='num-guesses'></span></div>
-    </div>
-    <div>
-        <label>Please input a number between 0 and 10000 (inclusive):</label>
-        <input type='number' name='guess'>
-    </div>
-    <button id='confirm'>Confirm</button>
-    <button id='restart'>Restart</button>
-    <div id='msg'></div>
-    <div id='history'>
-        You have guessed:
-        <div id='history-list'></div>
+    <script type='text/x-template' id='score-disp'>
+        <div class='black-border'>
+            <h4>Scores:</h4>
+            <ul>
+                <li v-for='(value, key) in scores'>{{ key }} : {{ value }}</li>
+            </ul>
+        </div>
+    </script>
+
+    <script type='text/x-template' id='guess-history-disp'>
+        <div class='black-border' v-if='history.length > 0'>
+            <h4>You have guessed:</h4>
+            <table>
+                <tbody>
+                    <tr v-for='value in history'>
+                        <td>{{ value }}:</td>
+                        <td v-if='value == target'>Bingo</td>
+                        <td v-else-if='value < target'>Too small</td>
+                        <td v-else>Too Big</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </script>
+
+    <div id='app' class="center" v-cloak>
+        <h1 v-cloak>{{ title }}</h1>
+        <div>
+            <div>Guesses left: <span>{{ numGuesses }}</span></div>
+        </div>
+        <div>
+            <label>Please input a number between 0 and 10000 (inclusive):</label>
+            <input type='number' v-model.lazy='guess'>
+        </div>
+        <button id='confirm' @click='makeGuess' :disabled='numGuesses <= 0'>Confirm</button>
+        <button id='restart' @click='init'>Restart</button>
+        <p v-if='message.length > 0'
+            :class="[{ correct: isCorrect },
+                    { 'too-small': !isGameOver && guess < target },
+                    { 'too-large': !isGameOver && guess > target },
+                    { 'game-over': !isCorrect && isGameOver }]">
+            {{ message }}
+        </p>
+        <guess-history :history='historyList' :target='target'></guess-history>
+        <score-disp :scores='scores'></score-disp>
     </div>
 </body>

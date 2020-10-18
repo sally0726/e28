@@ -1,60 +1,69 @@
-let resetBtn = document.querySelector('#restart');
-let confirmBtn = document.querySelector('#confirm');
-let guessLeftDisp = document.querySelector('#num-guesses');
-let msgDisp = document.querySelector('#msg');
-let history = document.querySelector('#history');
-let historyList = document.querySelector('#history-list');
-var target, num_guesses;
-var historyGuess;
+Vue.component('score-disp', {
+    template: '#score-disp',
+    props: ['scores']
+});
 
-function init() {
-    target = Math.round(Math.random() * 10000);
-    num_guesses = 13;
-    guessLeftDisp.innerHTML = num_guesses;
-    msgDisp.innerHTML = '';
-    history.style.display = 'none';
-    historyList.innerHTML = '';
-    historyGuess = [];
-    // console.log(target)
-}
+Vue.component('guess-history', {
+    template: '#guess-history-disp',
+    props: ['history', 'target']
+});
 
-function guess() {
-    if (num_guesses <= 0) {
-        return;
-    }
+let app = new Vue({
+    el: '#app',
+    data: {
+        title: 'Hi-Low Game',
+        numGuesses: 16,
+        target: Math.round(Math.random() * 10000),
+        message: '',
+        guess: 0,
+        scores: {'me': 0, 'computer': 0},
+        historyList: [],
+        isCorrect: false,
+        isGameOver: false,
+    },
+    methods: {
+        init(event) {
+            // resets the game
+            this.target = Math.round(Math.random() * 10000);
+            this.numGuesses = 13;
+            this.historyList = [];
+            this.message = '';
+            this.isCorrect = false;
+            this.isGameOver = false;
+            console.log(this.target);
+        },
 
-    history.style.display = 'block';
+        makeGuess(event) {
+            if (this.numGuesses <= 0) { // game over
+                return;
+            }
 
-    let ans = document.querySelector('input[name="guess"]').value;
-    var flag = true;
-    for (var i = 0; i < historyGuess.length; i++) {
-        if (ans == historyGuess[i]) {
-            msgDisp.innerHTML = "Come on, try another one!";
-            flag = false;
-            break;
+            // check for duplicates
+            for (var i = 0; i < this.historyList.length; i++) {
+                if (this.guess == this.historyList[i]) {
+                    this.message = "Come on, try another one!";
+                    return;
+                }
+            }
+
+            this.numGuesses--;
+            this.isGameOver = this.numGuesses <= 0;
+            this.isCorrect = this.guess == this.target;
+            if (this.isCorrect) {
+                this.scores['me']++;
+                this.message = 'Spot on! Good job!';
+            } else {
+                if (this.isGameOver) {
+                    this.scores['computer']++;
+                    this.message = 'Game over! The correct answer is ' + this.target + '\nYou can restart though.';
+                } else if (this.guess > this.target) {
+                    this.message = 'Try a smaller number!';
+                } else {
+                    this.message = 'Try a larger number!';
+                }
+            }
+            // update history
+            this.historyList.push(this.guess);
         }
     }
-    if (flag) {
-        num_guesses--;
-        guessLeftDisp.innerHTML = num_guesses;
-    }
-
-    if (num_guesses <= 0) {
-        msgDisp.innerHTML = 'Game over! You can restart though.';
-    }
-
-    if (ans > target) {
-        msgDisp.innerHTML = 'Try a smaller number!';
-    } else if (ans < target) {
-        msgDisp.innerHTML = 'Try a larger number!';
-    } else {
-        msgDisp.innerHTML = 'Spot on! Good job!';
-    }
-    
-    historyGuess.push(ans);
-    historyList.innerHTML = historyGuess.join();
-}
-
-confirmBtn.addEventListener('click', guess);
-resetBtn.addEventListener('click', init);
-init();
+});

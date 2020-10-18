@@ -1,9 +1,6 @@
 # Project 1
-+ By: *your first and last name*
++ By: Han Zeng
 + Production URL: <http://e28p1.yourdomain.com>
 
 ## Outside resources
-*your list of outside resources go here*
-
-## Notes for instructor
-*any notes for me to refer to while grading; if none, omit this section*
++ [How to center things](https://www.w3schools.com/howto/howto_css_center-vertical.asp)

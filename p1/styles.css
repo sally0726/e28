@@ -1,0 +1,44 @@
+div {
+    margin-top: 5px;
+}
+
+input {
+    margin-top: 5px;
+}
+
+button {
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    padding: 10px;
+}
+
+.black-border {
+    margin-top: 10px;
+    border: 2px solid #555555;
+}
+
+.correct {
+    background-color: forestgreen;
+    color: white;
+}
+
+.too-small {
+    background-color: darkcyan;
+    color: white;
+}
+
+.too-large{
+    background-color: darksalmon;
+    color: white;
+}
+
+.game-over {
+    background-color: crimson;
+    color: white;
+}
