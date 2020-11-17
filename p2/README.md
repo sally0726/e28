@@ -21,6 +21,7 @@
 + [How to center things](https://www.w3schools.com/howto/howto_css_center-vertical.asp)
 + [Django backend setup](https://docs.djangoproject.com/en/3.1/intro/tutorial03/)
 + [Django rest framework](https://www.django-rest-framework.org/tutorial/quickstart/)
++ [Vue logo](https://vuejs.org/)
 
 ## Notes for instructor
 - Setup my own backend using a simple Django Rest framework.
