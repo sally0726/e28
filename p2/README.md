@@ -3,15 +3,15 @@
 + Production URL: [Blog](https://e28p2.aboringanduselesswebsite.com/)
 
 ## Pages summary
-- Homepage (PostList.vue): presents the posts retrieved from the server.
-- Post detail (PostReader.vue): shows the detail of a post.
-- Post composer (PostWriter.vue): compose new post and update server data.
+- Homepage (`PostList.vue`): presents the posts retrieved from the server.
+- Post detail (`PostReader.vue`): shows the detail of a post.
+- Post composer (`PostWriter.vue`): compose new post and update server data.
 
 ## SFC summary
-- App.vue: app root.
-- PostList.vue: presents the posts retrieved from the server.
-- PostReader.vue: shows the detail of a post.
-- PostWriter.vue: compose new post and update server data.
+- `App.vue`: app root.
+- `PostList.vue`: presents the posts retrieved from the server.
+- `PostReader.vue`: shows the detail of a post.
+- `PostWriter.vue`: compose new post and update server data.
   
 ## Server interaction
 - Retrieve all posts: send a `GET` request to `https://excel.aboringanduselesswebsite/posts/posts/`
