@@ -6,5 +6,6 @@
   
 
 ## Outside resources
-*Your list of outside resources go here*
+- User registration and login with Django: https://iheanyi.com/journal/user-registration-authentication-with-django-django-rest-framework-react-and-redux/
+- Validatorjs doc: https://github.com/mikeerickson/validatorjs#readme
 
